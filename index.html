@@ -454,13 +454,6 @@
   <!-- ===== Header ===== -->
   <header class="site-header" id="siteHeader">
     <a href="index.html" class="header-logo">Yuto Jr.</a>
-    <nav aria-label="メインナビゲーション">
-      <ul class="header-nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="works.html" aria-current="page">Works</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-      </ul>
-    </nav>
   </header>
 
   <!-- ===== Hero ===== -->
@@ -508,7 +501,7 @@
           </ul>
           <h2 class="card-title">YutoJr. フリーランスLP</h2>
           <p class="card-desc">AIフリーランスとしてのサービス・料金・お問い合わせをまとめた集客LP</p>
-          <a href="https://yuto1519.github.io/portfolio/index.html" class="card-cta" target="_blank" rel="noopener noreferrer">
+          <a href="https://yuto1519.github.io/portfolio/works.html" class="card-cta" target="_blank" rel="noopener noreferrer">
             サイトを見る
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"
                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -612,16 +605,9 @@
               });
             });
           } else {
-            // フェードアウト → トランジション完了後に display:none
+            // 即座に非表示にしてレイアウトを即詰める
             card.classList.add('is-filtered-out');
-            const onEnd = (e) => {
-              if (e.propertyName !== 'opacity') return;
-              if (card.classList.contains('is-filtered-out')) {
-                card.style.display = 'none';
-              }
-              card.removeEventListener('transitionend', onEnd);
-            };
-            card.addEventListener('transitionend', onEnd);
+            card.style.display = 'none';
           }
         });
       });
