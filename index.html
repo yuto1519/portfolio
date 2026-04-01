@@ -316,6 +316,49 @@
     }
 
     /* ── Card internals ── */
+    .card-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #e4e4e0;
+    }
+
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .work-card.is-visible:hover .card-thumb img {
+      transform: scale(1.04);
+    }
+
+    .card-thumb-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card-thumb-placeholder.ph-lp {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #2563EB 100%);
+      color: rgba(255,255,255,0.35);
+    }
+
+    .card-thumb-placeholder.ph-corporate {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 60%, #3d3d5c 100%);
+      color: rgba(255,255,255,0.35);
+    }
+
     .card-bar {
       height: 3px;
       background: var(--accent);
@@ -493,6 +536,9 @@
 
       <!-- Card: YutoJr. フリーランスLP -->
       <article class="work-card" data-category="lp">
+        <div class="card-thumb">
+          <img src="works.png" alt="YutoJr. フリーランスLP" loading="lazy">
+        </div>
         <div class="card-bar"></div>
         <div class="card-content">
           <ul class="card-tags" aria-label="タグ">
@@ -513,6 +559,10 @@
 
       <!-- Card: フィットネスジム LP -->
       <article class="work-card" data-category="lp">
+        <div class="card-thumb">
+          <!-- 画像ができたら <img src="gym-lp.png" alt="フィットネスジム LP" loading="lazy"> に差し替え -->
+          <img src="portfolio-gym-lp.png">
+        </div>
         <div class="card-bar"></div>
         <div class="card-content">
           <ul class="card-tags" aria-label="タグ">
@@ -533,6 +583,10 @@
 
       <!-- Card: Craft Studio コーポレートサイト -->
       <article class="work-card" data-category="corporate">
+        <div class="card-thumb">
+          <!-- 画像ができたら <img src="craft-studio.png" alt="Craft Studio コーポレートサイト" loading="lazy"> に差し替え -->
+          <img src="Craft-Studio.png">
+        </div>
         <div class="card-bar"></div>
         <div class="card-content">
           <ul class="card-tags" aria-label="タグ">
