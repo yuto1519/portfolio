@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORMA — パーソナルトレーニングジム</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F5;
+    --bg-dark: #1A1814;
+    --surface: #FFFFFF;
+    --surface-warm: #F5F0EB;
+    --surface-accent: #EDE7DF;
+    --border: #E5DFD6;
+    --text: #3D3A35;
+    --text-light: #8A847A;
+    --text-dark: #1A1814;
+    --accent: #B8704B;
+    --accent-light: #D4956E;
+    --accent-dark: #8B4F30;
+    --accent-bg: rgba(184, 112, 75, 0.06);
+    --gold: #C9A96E;
+    --green: #6B8F71;
+    --green-bg: rgba(107, 143, 113, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== NAVIGATION ===== */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 0 40px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(250, 248, 245, 0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(229, 223, 214, 0.5);
+    transition: all 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-dark);
+    letter-spacing: 4px;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-light);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    padding: 10px 28px;
+    background: var(--accent);
+    color: #fff !important;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+  }
+
+  .nav-cta:hover {
+    background: var(--accent-dark);
+    transform: translateY(-1px);
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .hamburger span {
+    width: 24px;
+    height: 2px;
+    background: var(--text-dark);
+    transition: 0.3s;
+  }
+
+  @media (max-width: 768px) {
+    .nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 72px 40px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--surface-warm) 0%, var(--surface-accent) 100%);
+    z-index: 0;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -200px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,112,75,0.06) 0%, transparent 70%);
+    z-index: 0;
+  }
+
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 40px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text-dark);
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 2;
+    margin-bottom: 36px;
+    max-width: 440px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(184,112,75,0.25);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 32px;
+    background: transparent;
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero-visual {
+    position: relative;
+    height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-img-placeholder {
+    width: 400px;
+    height: 480px;
+    background: linear-gradient(160deg, #d4c4b0, #c2a88a);
+    border-radius: 200px 200px 24px 24px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(26,24,20,0.12);
+  }
+
+  .hero-img-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26,24,20,0.15) 0%, transparent 40%);
+  }
+
+  .hero-img-text {
+    position: relative;
+    z-index: 1;
+    color: rgba(255,255,255,0.8);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding-bottom: 40px;
+  }
+
+  .hero-stat {
+    position: absolute;
+    bottom: 40px;
+    left: -40px;
+    background: var(--surface);
+    padding: 20px 24px;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(26,24,20,0.08);
+    z-index: 2;
+  }
+
+  .hero-stat .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .hero-stat .label {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 768px) {
+    .hero { padding: 100px 20px 60px; min-height: auto; }
+    .hero::before { width: 100%; height: 40%; bottom: 0; top: auto; }
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero h1 { font-size: 38px; }
+    .hero-visual { height: 360px; }
+    .hero-img-placeholder { width: 280px; height: 340px; }
+    .hero-stat { left: 0; bottom: 20px; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ===== FEATURES ===== */
+  .features {
+    padding: 120px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    width: 40px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .section-desc {
+    font-size: 15px;
+    color: var(--text-light);
+    max-width: 520px;
+    line-height: 1.9;
+    margin-bottom: 56px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .features { padding: 80px 20px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .section-heading { font-size: 30px; }
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 32px;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+    transform-origin: left;
+  }
+
+  .feature-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(26,24,20,0.06);
+  }
+
+  .feature-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    background: var(--accent-bg);
+  }
+
+  .feature-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+  }
+
+  .feature-card p {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+
+  /* ===== PROGRAM ===== */
+  .program {
+    padding: 120px 40px;
+    background: var(--bg-dark);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .program::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,112,75,0.08) 0%, transparent 70%);
+  }
+
+  .program-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .program .section-eyebrow { color: var(--gold); }
+  .program .section-eyebrow::before { background: var(--gold); }
+  .program .section-heading { color: #fff; }
+  .program .section-desc { color: rgba(255,255,255,0.5); }
+
+  .program-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .program { padding: 80px 20px; }
+    .program-grid { grid-template-columns: 1fr; }
+  }
+
+  .program-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 36px 28px;
+    transition: all 0.3s;
+  }
+
+  .program-card:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.12);
+    transform: translateY(-4px);
+  }
+
+  .program-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .program-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+
+  .program-card p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .program-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .program-price .yen {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .program-price .amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .program-price .period {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    margin-left: 4px;
+  }
+
+  /* ===== RESULTS ===== */
+  .results {
+    padding: 120px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  @media (max-width: 768px) {
+    .results { padding: 80px 20px; }
+    .results-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .result-card {
+    text-align: center;
+    padding: 32px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+  }
+
+  .result-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .result-unit {
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .result-label {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* Testimonials */
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .testimonials { grid-template-columns: 1fr; }
+  }
+
+  .testimonial-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+  }
+
+  .testimonial-stars {
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .testimonial-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .testimonial-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--surface-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .testimonial-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  .testimonial-detail {
+    font-size: 12px;
+    color: var(--text-light);
+  }
+
+  /* ===== TRAINER ===== */
+  .trainer {
+    padding: 120px 40px;
+    background: var(--surface-warm);
+  }
+
+  .trainer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .trainer { padding: 80px 20px; }
+    .trainer-inner { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .trainer-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, #c2a88a, #a8917a);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 24px 64px rgba(26,24,20,0.1);
+  }
+
+  .trainer-photo-text {
+    color: rgba(255,255,255,0.6);
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  .trainer-content .section-heading {
+    margin-bottom: 24px;
+  }
+
+  .trainer-bio {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 2.1;
+    margin-bottom: 28px;
+  }
+
+  .trainer-certs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .cert-tag {
+    font-size: 12px;
+    padding: 6px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+
+  /* ===== FLOW ===== */
+  .flow {
+    padding: 120px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .flow-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .flow { padding: 80px 20px; }
+    .flow-steps { grid-template-columns: 1fr 1fr; }
+  }
+
+  .flow-step {
+    text-align: center;
+    padding: 32px 20px;
+    position: relative;
+  }
+
+  .flow-step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--surface-accent);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .flow-step h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+  }
+
+  .flow-step p {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  /* ===== FAQ ===== */
+  .faq {
+    padding: 120px 40px;
+    background: var(--surface-warm);
+  }
+
+  .faq-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 28px 0;
+  }
+
+  .faq-q {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .faq-q-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+
+  .faq-a {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.9;
+    padding-left: 32px;
+  }
+
+  /* ===== CTA ===== */
+  .cta {
+    padding: 120px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,112,75,0.05) 0%, transparent 60%);
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta .section-eyebrow {
+    justify-content: center;
+  }
+
+  .cta .section-heading {
+    margin-bottom: 16px;
+  }
+
+  .cta-desc {
+    font-size: 15px;
+    color: var(--text-light);
+    max-width: 480px;
+    margin: 0 auto 40px;
+    line-height: 1.9;
+  }
+
+  .cta-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: var(--green-bg);
+    color: var(--green);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .cta-contact {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text-light);
+  }
+
+  .cta-contact a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    padding: 60px 40px;
+    background: var(--bg-dark);
+    color: rgba(255,255,255,0.4);
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 4px;
+  }
+
+  .footer-info {
+    font-size: 12px;
+    line-height: 1.8;
+    text-align: right;
+  }
+
+  @media (max-width: 768px) {
+    .footer { padding: 40px 20px; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .footer-info { text-align: center; }
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-content { animation: fadeUp 0.8s ease-out; }
+  .hero-visual { animation: fadeUp 0.8s ease-out 0.2s both; }
+</style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">FORMA</a>
+    <ul class="nav-links">
+      <li><a href="#features">特徴</a></li>
+      <li><a href="#program">プログラム</a></li>
+      <li><a href="#results">実績</a></li>
+      <li><a href="#trainer">トレーナー</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="nav-cta">無料カウンセリング</a></li>
+    </ul>
+    <div class="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Personal Training Gym</div>
+        <h1>あなたの体は、<br>もっと<em>美しく</em>なれる</h1>
+        <p class="hero-desc">
+          一人ひとりの体質・目標に合わせた完全オーダーメイドのトレーニングプログラム。
+          科学的根拠に基づいたメソッドで、理想の体を最短で実現します。
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">無料カウンセリング予約 →</a>
+          <a href="#program" class="btn-secondary">プログラムを見る</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-img-placeholder">
+          <span class="hero-img-text">TRAINING IMAGE</span>
+        </div>
+        <div class="hero-stat">
+          <div class="num">97<span style="font-size:20px">%</span></div>
+          <div class="label">目標達成率</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="section-eyebrow">Why FORMA</div>
+    <h2 class="section-heading">選ばれる3つの理由</h2>
+    <p class="section-desc">
+      結果を出すために必要なのは、根性ではなく正しい方法です。
+      FORMAでは科学とテクノロジーを活用した最新のアプローチを採用しています。
+    </p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🧬</div>
+        <h3>遺伝子レベルの分析</h3>
+        <p>体質診断をもとに、あなたに最も効果的なトレーニング種目・食事プランを設計。無駄のないアプローチで最短距離を目指します。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>AIによる進捗管理</h3>
+        <p>専用アプリでトレーニングデータをリアルタイム分析。体組成の変化を可視化し、プログラムを常に最適化し続けます。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🍽</div>
+        <h3>管理栄養士の食事指導</h3>
+        <p>「食べない」ダイエットは過去のもの。LINEでの毎食フィードバックで、美味しく食べながら理想の体を作ります。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Program -->
+  <section class="program" id="program">
+    <div class="program-inner">
+      <div class="section-eyebrow">Programs</div>
+      <h2 class="section-heading">目的に合わせた<br>3つのプログラム</h2>
+      <p class="section-desc">
+        すべてのプログラムに食事指導・進捗管理アプリが含まれます。
+      </p>
+      <div class="program-grid">
+        <div class="program-card">
+          <div class="program-label">Standard</div>
+          <h3>ボディメイク</h3>
+          <p>週2回×60分のトレーニングと食事指導で、無理なく理想の体型へ。運動初心者の方に最適なプログラムです。</p>
+          <div class="program-price">
+            <span class="yen">¥</span>
+            <span class="amount">29,800</span>
+            <span class="period">/月</span>
+          </div>
+        </div>
+        <div class="program-card" style="border-color: var(--gold);">
+          <div class="program-label">Premium</div>
+          <h3>短期集中ダイエット</h3>
+          <p>3ヶ月で結果を出す集中プログラム。週3回のトレーニングに加え、毎食の食事管理で確実に体を変えます。</p>
+          <div class="program-price">
+            <span class="yen">¥</span>
+            <span class="amount">49,800</span>
+            <span class="period">/月</span>
+          </div>
+        </div>
+        <div class="program-card">
+          <div class="program-label">Athlete</div>
+          <h3>パフォーマンス強化</h3>
+          <p>スポーツや競技のパフォーマンスを最大化。専門的な筋力トレーニングとコンディショニングを提供します。</p>
+          <div class="program-price">
+            <span class="yen">¥</span>
+            <span class="amount">69,800</span>
+            <span class="period">/月</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="results" id="results">
+    <div class="section-eyebrow">Results</div>
+    <h2 class="section-heading">数字が証明する実績</h2>
+    <p class="section-desc">2020年の開業以来、多くのお客様の目標達成をサポートしてきました。</p>
+
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-num">1,200<span class="result-unit">+</span></div>
+        <div class="result-label">累計クライアント数</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">97<span class="result-unit">%</span></div>
+        <div class="result-label">目標達成率</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">-8.3<span class="result-unit">kg</span></div>
+        <div class="result-label">平均体重減少（3ヶ月）</div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">4.8<span class="result-unit">★</span></div>
+        <div class="result-label">Google口コミ評価</div>
+      </div>
+    </div>
+
+    <div class="testimonials">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">3ヶ月で-10kg達成。食事指導が本当に的確で、「食べながら痩せる」を実感しました。トレーナーの知識量に驚きです。</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">M</div>
+          <div>
+            <div class="testimonial-name">M.T さん</div>
+            <div class="testimonial-detail">30代女性・ボディメイクコース</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">筋トレ未経験で不安でしたが、フォーム指導が丁寧で安心して取り組めました。体脂肪率が28%→18%に。人生変わりました。</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">K</div>
+          <div>
+            <div class="testimonial-name">K.S さん</div>
+            <div class="testimonial-detail">40代男性・短期集中コース</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">産後のダイエット目的で通い始めました。子連れOKで助かっています。週2回でも確実に体が変わるのを実感しています。</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">A</div>
+          <div>
+            <div class="testimonial-name">A.Y さん</div>
+            <div class="testimonial-detail">30代女性・ボディメイクコース</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trainer -->
+  <section class="trainer" id="trainer">
+    <div class="trainer-inner">
+      <div class="trainer-photo">
+        <span class="trainer-photo-text">TRAINER PHOTO</span>
+      </div>
+      <div class="trainer-content">
+        <div class="section-eyebrow">Head Trainer</div>
+        <h2 class="section-heading">田中 翔太</h2>
+        <p class="trainer-bio">
+          大手フィットネスクラブで7年間の指導経験を経て、2020年にFORMAを設立。
+          「科学的根拠に基づいた、無理のないボディメイク」をモットーに、
+          これまで1,200名以上のクライアントの目標達成をサポート。
+          特に、運動初心者やダイエットに挫折した経験のある方への指導を得意としています。
+        </p>
+        <div class="trainer-certs">
+          <span class="cert-tag">NSCA-CPT</span>
+          <span class="cert-tag">NESTA-PFT</span>
+          <span class="cert-tag">管理栄養士監修</span>
+          <span class="cert-tag">健康運動指導士</span>
+          <span class="cert-tag">救急救命講習修了</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flow -->
+  <section class="flow" id="flow">
+    <div class="section-eyebrow">Flow</div>
+    <h2 class="section-heading">ご利用の流れ</h2>
+    <p class="section-desc">初回カウンセリングは無料です。まずはお気軽にご相談ください。</p>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-step-num">01</div>
+        <h4>無料カウンセリング</h4>
+        <p>目標・生活習慣・運動経験をヒアリング。体組成測定も実施します。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">02</div>
+        <h4>プラン設計</h4>
+        <p>ヒアリング結果をもとに最適なプログラムをご提案。納得いただいてから開始。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">03</div>
+        <h4>トレーニング開始</h4>
+        <p>マンツーマンで丁寧に指導。正しいフォームを身につけることを最優先します。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">04</div>
+        <h4>継続サポート</h4>
+        <p>LINEでの食事指導・進捗管理アプリで、セッション外もフルサポート。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="faq-inner">
+      <div class="section-eyebrow">FAQ</div>
+      <h2 class="section-heading">よくあるご質問</h2>
+      <p class="section-desc" style="margin-bottom: 40px;">ご不明な点はお気軽にお問い合わせください。</p>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-mark">Q</span>
+          <span>運動経験がまったくないのですが大丈夫ですか？</span>
+        </div>
+        <div class="faq-a">はい、ご安心ください。当ジムの会員様の約60%が運動未経験からのスタートです。一人ひとりのレベルに合わせて段階的にプログラムを設計いたしますので、無理なく始められます。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-mark">Q</span>
+          <span>食事制限は厳しいですか？</span>
+        </div>
+        <div class="faq-a">極端な食事制限は行いません。管理栄養士監修のもと、普段の食事をベースに改善点をアドバイスします。「食べるもの」を変えるのではなく、「食べ方」を変えるアプローチです。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-mark">Q</span>
+          <span>どのくらいで効果が出ますか？</span>
+        </div>
+        <div class="faq-a">個人差はありますが、多くの方が2〜3週間で体の変化を実感されます。体重の変化は1ヶ月目から現れ、3ヶ月で平均-8.3kgの実績があります。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-mark">Q</span>
+          <span>途中でプランを変更できますか？</span>
+        </div>
+        <div class="faq-a">はい、可能です。月単位でプランの変更・休会が可能です。ライフスタイルの変化に合わせて柔軟に対応いたします。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-mark">Q</span>
+          <span>子連れでも通えますか？</span>
+        </div>
+        <div class="faq-a">はい、キッズスペースをご用意しています。お子様連れのママ・パパも安心してトレーニングに集中していただけます。事前にお申し付けください。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <div class="cta-inner">
+      <div class="section-eyebrow" style="justify-content:center">Contact</div>
+      <h2 class="section-heading">まずは無料カウンセリングから</h2>
+      <div class="cta-badge">✓ 体組成測定が無料で受けられます</div>
+      <p class="cta-desc">
+        カウンセリングでは、あなたの目標や生活スタイルをお伺いし、最適なプランをご提案します。
+        無理な勧誘は一切いたしません。
+      </p>
+      <a href="#" class="btn-primary" style="font-size:16px; padding: 18px 48px;">
+        無料カウンセリングを予約する →
+      </a>
+      <p class="cta-contact">
+        お電話でのご予約：<a href="tel:0312345678">03-1234-5678</a>（10:00〜21:00）
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">FORMA</div>
+        <p style="font-size: 12px; margin-top: 8px;">Personal Training Gym</p>
+      </div>
+      <div class="footer-info">
+        <p>〒150-0001 東京都渋谷区神宮前3-1-1</p>
+        <p>営業時間：7:00〜23:00（最終受付 22:00）</p>
+        <p style="margin-top: 8px;">© 2026 FORMA. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
